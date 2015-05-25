@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+BIN_DIR=$( dirname "${BASH_SOURCE[0]}" )
+BASE_DIR=$( dirname "${BIN_DIR}" )
+VENV_REPO="${BASE_DIR}/envs"
+
+PYVENV=$( which "pyvenv" )
+
+if [ ! -d "${VENV_REPO}" ]; then
+  mkdir "${VENV_REPO}"
+fi
+
+function create_env {
+  VENV=$1
+
+  $PYVENV "${VENV_REPO}/${VENV}"
+
+  activate_env "${VENV}"
+}
+
+function activate_env {
+  VENV=$1
+
+  source "${VENV_REPO}/${VENV}/bin/activate"
+}
